@@ -34,11 +34,36 @@
 
         a { text-decoration: none; color: inherit; }
 
+        /* --- FONDO DEL HEADER CON IMAGEN --- */
         header {
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 5rem 1rem 3rem 1rem; 
             border-bottom: 1px solid var(--gris-plata);
-            background: linear-gradient(to bottom, #000, var(--bg-main));
+            position: relative;
+            /* Degradado oscuro + imagen de fondo (recordá guardar tu foto como fondo-local.jpg) */
+            background-image: linear-gradient(to bottom, rgba(13, 13, 13, 0.5) 0%, rgba(13, 13, 13, 0.8) 50%, var(--bg-main) 100%), url('fondo-local.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+        }
+
+        /* --- BOTÓN DEL CARRITO --- */
+        .cart-icon-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(5px);
+            border: 2px solid var(--text-main);
+            color: var(--text-main); width: 45px; height: 45px;
+            border-radius: 50%; font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+        .cart-count {
+            position: absolute; top: -5px; right: -5px;
+            background: var(--amarillo); color: #000;
+            font-size: 0.8rem; font-weight: bold;
+            width: 20px; height: 20px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
 
         .logo-container {
@@ -52,6 +77,7 @@
             align-items: center;
             justify-content: center;
             background-color: #000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
         }
 
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -96,6 +122,7 @@
         
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
 
+        /* --- DISEÑO DE PRODUCTOS --- */
         .product-card {
             background-color: #1a1a1a;
             border: 1px solid var(--text-main);
@@ -125,10 +152,46 @@
             box-shadow: 2px 2px 0px #000;
         }
 
+        /* --- BOTÓN AGREGAR --- */
+        .btn-add {
+            background-color: transparent; border: 1px solid var(--amarillo); color: var(--amarillo);
+            padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; cursor: pointer;
+            margin-top: 15px; transition: all 0.2s; width: 100%; font-family: var(--font-body);
+        }
+        .btn-add:hover { background-color: var(--amarillo); color: #000; }
+
         .salsas-box { background-color: #1a1a1a; border: 1px solid var(--gris-plata); border-radius: 15px; padding: 1.5rem; margin-top: 1.5rem; }
         .salsas-box h3 { font-family: var(--font-titles); font-style: italic; font-size: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; color: var(--amarillo); }
         .salsas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
         .salsa-item { background-color: #000; border: 1px solid var(--gris-plata); padding: 0.5rem; text-align: center; border-radius: 8px; font-size: 0.8rem; font-weight: 600; }
+
+        /* --- MODAL DEL CARRITO --- */
+        .cart-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center;
+        }
+        .cart-modal.active { display: flex; }
+        .cart-content {
+            background: #1a1a1a; border: 1px solid var(--text-main);
+            width: 90%; max-width: 500px; border-radius: 15px; padding: 1.5rem;
+            max-height: 80vh; display: flex; flex-direction: column;
+        }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gris-plata); padding-bottom: 1rem; margin-bottom: 1rem; }
+        .cart-header h3 { font-family: var(--font-titles); font-size: 1.5rem; text-transform: uppercase; }
+        .btn-close { background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
+        .cart-items { overflow-y: auto; flex-grow: 1; margin-bottom: 1rem; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding: 0.8rem 0; }
+        .cart-item-info { flex-grow: 1; }
+        .cart-item-name { font-weight: 600; }
+        .cart-item-price { color: var(--crema); font-size: 0.9rem; }
+        .cart-item-controls { display: flex; align-items: center; gap: 10px; }
+        .cart-item-controls button { background: none; border: 1px solid var(--gris-plata); color: var(--text-main); width: 25px; height: 25px; border-radius: 50%; cursor: pointer; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; border-top: 1px solid var(--gris-plata); padding-top: 1rem; margin-bottom: 1rem; }
+        .btn-checkout {
+            background-color: var(--amarillo); color: #000; font-weight: 700; font-family: var(--font-titles);
+            font-size: 1.2rem; padding: 1rem; border: none; border-radius: 8px; cursor: pointer; width: 100%;
+            text-transform: uppercase; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
 
         .whatsapp-btn {
             position: fixed; bottom: 20px; right: 20px; background-color: var(--amarillo); color: #000;
@@ -151,6 +214,12 @@
 <body>
 
     <header>
+        <!-- Botón del carrito en el header -->
+        <button class="cart-icon-btn" onclick="toggleCart()">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count" id="cart-count">0</span>
+        </button>
+
         <div class="logo-container">
             <img src="logo-lef-circulo-1024.png" alt="Logo L.E.F">
         </div>
@@ -163,71 +232,76 @@
     </header>
 
     <main class="container">
-      <!-- CATEGORÍA: HAMBURGUESAS -->
-<h2 class="category-title"><i class="fa-solid fa-burger"></i> Hamburguesas</h2>
-<div class="product-grid">
-    <div class="product-card">
-        <img src="hamburguesa-simple.jpg" alt="Hamburguesa Simple" class="product-img">
-        <div class="product-info">
-            <h3 class="product-name">Simple</h3>
-            <p class="product-desc">Medallón de carne, queso, lechuga, tomate y aderezos.</p>
-            <span class="price-tag">$4.000</span>
+        <!-- CATEGORÍA: HAMBURGUESAS -->
+        <h2 class="category-title"><i class="fa-solid fa-burger"></i> Hamburguesas</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="hamburguesa-simple.jpg" alt="Hamburguesa Simple" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-name">Simple</h3>
+                    <p class="product-desc">Medallón de carne, queso, lechuga, tomate y aderezos.</p>
+                    <span class="price-tag">$4.000</span>
+                    <button class="btn-add" onclick="addToCart('Simple', 4000)">+ Agregar al pedido</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="hamburguesa-doble-cheddar.jpg" alt="Hamburguesa Doble" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-name">Doble con Cheddar</h3>
+                    <p class="product-desc">Dos medallones, doble cheddar y panceta.</p>
+                    <span class="price-tag">$7.000</span>
+                    <button class="btn-add" onclick="addToCart('Doble con Cheddar', 7000)">+ Agregar al pedido</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="hamburguesa-completa.jpg" alt="Hamburguesa Completa" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-name">Completa</h3>
+                    <p class="product-desc">Medallón, huevo, jamón, queso, lechuga, tomate y aderezos.</p>
+                    <span class="price-tag">$7.000</span>
+                    <button class="btn-add" onclick="addToCart('Completa', 7000)">+ Agregar al pedido</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="product-card">
-        <img src="hamburguesa-doble-cheddar.jpg" alt="Hamburguesa Doble" class="product-img">
-        <div class="product-info">
-            <h3 class="product-name">Doble con Cheddar</h3>
-            <p class="product-desc">Dos medallones, doble cheddar y panceta.</p>
-            <span class="price-tag">$7.000</span>
-        </div>
-    </div>
-    <div class="product-card">
-        <img src="hamburguesa-completa.jpg" alt="Hamburguesa Completa" class="product-img">
-        <div class="product-info">
-            <h3 class="product-name">Completa</h3>
-            <p class="product-desc">Medallón, huevo, jamón, queso, lechuga, tomate y aderezos.</p>
-            <span class="price-tag">$7.000</span>
-        </div>
-    </div>
-</div>
 
-<!-- CATEGORÍA: PANCHOS -->
-<h2 class="category-title"><i class="fa-solid fa-hotdog"></i> Panchería 24 HS</h2>
-<div class="product-grid">
-    <div class="product-card">
-        <img src="pancho.jpg" alt="Pancho" class="product-img">
-        <div class="product-info">
-            <h3 class="product-name">Pancho</h3>
-            <p class="product-desc">Salchicha, pan artesanal y aderezos a elección.</p>
-            <span class="price-tag">$2.500</span>
+        <!-- CATEGORÍA: PANCHOS -->
+        <h2 class="category-title"><i class="fa-solid fa-hotdog"></i> Panchería 24 HS</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="pancho.jpg" alt="Pancho" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-name">Pancho</h3>
+                    <p class="product-desc">Salchicha, pan artesanal y aderezos a elección.</p>
+                    <span class="price-tag">$2.500</span>
+                    <button class="btn-add" onclick="addToCart('Pancho', 2500)">+ Agregar al pedido</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="promo-3-panchos.jpg" alt="Promo Panchos" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-name">Promo del Mediodía</h3>
+                    <p class="product-desc">3 Panchos completos con aderezos a elección.</p>
+                    <span class="price-tag">$6.000</span>
+                    <button class="btn-add" onclick="addToCart('Promo del Mediodía', 6000)">+ Agregar al pedido</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="product-card">
-        <img src="promo-3-panchos.jpg" alt="Promo Panchos" class="product-img">
-        <div class="product-info">
-            <h3 class="product-name">Promo del Mediodía</h3>
-            <p class="product-desc">3 Panchos completos con aderezos a elección.</p>
-            <span class="price-tag">$6.000</span>
-        </div>
-    </div>
-</div>
 
-<!-- SALSAS -->
-<div class="salsas-box">
-    <h3>¡Elegí tu salsa favorita!</h3>
-    <div class="salsas-grid">
-        <div class="salsa-item">Salsa Cheddar</div>
-        <div class="salsa-item">Salsa Golf</div>
-        <div class="salsa-item">Mayonesa de Ajo</div>
-        <div class="salsa-item">Salsa Barbacoa</div>
-        <div class="salsa-item">Mostaza con Miel</div>
-        <div class="salsa-item">Chimichurri</div>
-        <div class="salsa-item">Salsa Criolla</div>
-        <div class="salsa-item">Cebolla Caramelizada</div>
-    </div>
-                                            </div>
-         <!-- CATEGORÍA: SÁNDWICHES -->
+        <!-- SALSAS -->
+        <div class="salsas-box">
+            <h3>¡Elegí tu salsa favorita!</h3>
+            <div class="salsas-grid">
+                <div class="salsa-item">Salsa Cheddar</div>
+                <div class="salsa-item">Salsa Golf</div>
+                <div class="salsa-item">Mayonesa de Ajo</div>
+                <div class="salsa-item">Salsa Barbacoa</div>
+                <div class="salsa-item">Mostaza con Miel</div>
+                <div class="salsa-item">Chimichurri</div>
+                <div class="salsa-item">Salsa Criolla</div>
+                <div class="salsa-item">Cebolla Caramelizada</div>
+            </div>
+                    </div>
+    <!-- CATEGORÍA: SÁNDWICHES -->
     <h2 class="category-title"><i class="fa-solid fa-bread-slice"></i> Sándwiches</h2>
     <div class="product-grid">
         <div class="product-card">
@@ -236,6 +310,7 @@
                 <h3 class="product-name">Sándwich de Milanesa</h3>
                 <p class="product-desc">Milanesa de carne, lechuga, tomate y mayonesa.</p>
                 <span class="price-tag">$10.000</span>
+                <button class="btn-add" onclick="addToCart('Sándwich de Milanesa', 10000)">+ Agregar al pedido</button>
             </div>
         </div>
         <div class="product-card">
@@ -244,6 +319,7 @@
                 <h3 class="product-name">Sándwich de Lomito</h3>
                 <p class="product-desc">Lomo, jamón, queso, lechuga, tomate y aderezos.</p>
                 <span class="price-tag">$12.000</span>
+                <button class="btn-add" onclick="addToCart('Sándwich de Lomito', 12000)">+ Agregar al pedido</button>
             </div>
         </div>
     </div>
@@ -257,6 +333,7 @@
                 <h3 class="product-name">Porción de Fritas</h3>
                 <p class="product-desc">Papas fritas clásicas, crocantes y doradas.</p>
                 <span class="price-tag">$6.000</span>
+                <button class="btn-add" onclick="addToCart('Porción de Fritas', 6000)">+ Agregar al pedido</button>
             </div>
         </div>
         <div class="product-card">
@@ -265,6 +342,7 @@
                 <h3 class="product-name">Cono de Papas</h3>
                 <p class="product-desc">Papas fritas en cono individual.</p>
                 <span class="price-tag">$4.000</span>
+                <button class="btn-add" onclick="addToCart('Cono de Papas', 4000)">+ Agregar al pedido</button>
             </div>
         </div>
         <div class="product-card">
@@ -273,6 +351,7 @@
                 <h3 class="product-name">Cono de Patitas</h3>
                 <p class="product-desc">Patitas de pollo crocantes en cono.</p>
                 <span class="price-tag">$7.000</span>
+                <button class="btn-add" onclick="addToCart('Cono de Patitas', 7000)">+ Agregar al pedido</button>
             </div>
         </div>
         <div class="product-card">
@@ -281,6 +360,7 @@
                 <h3 class="product-name">Bandeja de Patitas</h3>
                 <p class="product-desc">Patitas de pollo para compartir.</p>
                 <span class="price-tag">$11.000</span>
+                <button class="btn-add" onclick="addToCart('Bandeja de Patitas', 11000)">+ Agregar al pedido</button>
             </div>
         </div>
     </div>
@@ -294,11 +374,32 @@
                 <h3 class="product-name">Licuado de Banana</h3>
                 <p class="product-desc">Vaso de 1 litro. Refrescante y natural.</p>
                 <span class="price-tag">$8.000</span>
+                <button class="btn-add" onclick="addToCart('Licuado de Banana', 8000)">+ Agregar al pedido</button>
             </div>
         </div>
     </div>
     </main>
-      <!-- BOTÓN FLOTANTE WHATSAPP -->
+        <!-- MODAL DEL CARRITO -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Tu Pedido</h3>
+                <button class="btn-close" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Los productos se cargan acá con JS -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0</span>
+            </div>
+            <button class="btn-checkout" onclick="sendOrder()">
+                <i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
     <a href="https://wa.me/541135189539?text=Hola%20La%20Esquina%20Futsal!%20Quiero%20hacer%20un%20pedido." class="whatsapp-btn" target="_blank" aria-label="Pedir por WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -309,6 +410,99 @@
         <p>Delivery de 20:00 a 03:00 hs | WhatsApp: 11 3518-9539</p>
         <p style="margin-top: 10px; font-size: 0.7rem; opacity: 0.7;">&copy; 2026 La Esquina Futsal. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- LÓGICA DEL CARRITO -->
+    <script>
+        let cart = JSON.parse(localStorage.getItem('lef_cart')) || [];
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total-price');
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; color:#888; padding: 2rem 0;">Tu carrito está vacío. ¡Agregá algo rico!</p>';
+            }
+
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                count += item.quantity;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toLocaleString('es-AR')}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button onclick="changeQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity(${index}, 1)">+</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemDiv);
+            });
+
+            cartCount.innerText = count;
+            cartTotal.innerText = '$' + total.toLocaleString('es-AR');
+            
+            localStorage.setItem('lef_cart', JSON.stringify(cart));
+        }
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            updateCartUI();
+            document.getElementById('cart-count').style.transform = 'scale(1.5)';
+            setTimeout(() => document.getElementById('cart-count').style.transform = 'scale(1)', 200);
+        }
+
+        function changeQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert('Agregá algún producto antes de pedir.');
+                return;
+            }
+
+            let message = "Hola La Esquina Futsal! Quiero hacer el siguiente pedido:\n\n";
+            let total = 0;
+
+            cart.forEach(item => {
+                message += `• ${item.quantity}x ${item.name} - $${(item.price * item.quantity).toLocaleString('es-AR')}\n`;
+                total += item.price * item.quantity;
+            });
+
+            message += `\n*TOTAL: $${total.toLocaleString('es-AR')}*`;
+            message += `\n\nPor favor, confirmen mi pedido. ¡Gracias!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const phone = "541135189539";
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+        }
+
+        updateCartUI();
+    </script>
 
 </body>
 </html>
