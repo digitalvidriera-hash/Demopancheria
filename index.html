@@ -24,33 +24,37 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* --- FONDO APLICADO A TODA LA PANTALLA --- */
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
             font-family: var(--font-body);
             line-height: 1.6;
             padding-bottom: 80px;
+            
+            /* Imagen fija de fondo con capa oscura para leer bien */
+            background-image: linear-gradient(rgba(13, 13, 13, 0.85), rgba(13, 13, 13, 0.95)), url('fondo-local.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* ACÁ ESTÁ LA MAGIA DEL FONDO FIJO */
         }
 
         a { text-decoration: none; color: inherit; }
 
-        /* --- FONDO DEL HEADER CON IMAGEN --- */
+        /* --- HEADER TRANSPARENTE --- */
         header {
             text-align: center;
             padding: 5rem 1rem 3rem 1rem; 
             border-bottom: 1px solid var(--gris-plata);
             position: relative;
-            /* Degradado oscuro + imagen de fondo (recordá guardar tu foto como fondo-local.jpg) */
-            background-image: linear-gradient(to bottom, rgba(13, 13, 13, 0.5) 0%, rgba(13, 13, 13, 0.8) 50%, var(--bg-main) 100%), url('fondo-local.jpg');
-            background-size: cover;
-            background-position: center 30%;
-            background-repeat: no-repeat;
+            background: transparent; /* Ya no tiene fondo propio, usa el del body */
         }
 
         /* --- BOTÓN DEL CARRITO --- */
         .cart-icon-btn {
             position: absolute; top: 20px; right: 20px;
-            background: rgba(0, 0, 0, 0.6); 
+            background: rgba(0, 0, 0, 0.7); 
             backdrop-filter: blur(5px);
             border: 2px solid var(--text-main);
             color: var(--text-main); width: 45px; height: 45px;
@@ -89,6 +93,7 @@
             letter-spacing: 1px;
             line-height: 1;
             margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Sombra para que resalte sobre la foto */
         }
 
         .badge-24hs {
@@ -105,6 +110,8 @@
 
         .header-info { margin-top: 1rem; font-size: 0.85rem; color: var(--gris-plata); }
         .header-info span { color: var(--amarillo); font-weight: 600; }
+        
+        /* --- CONTENEDOR PRINCIPAL --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
         
         .category-title {
@@ -116,6 +123,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
         .category-title::after { content: ""; flex: 1; height: 2px; background-color: var(--gris-plata); border-radius: 2px; }
         .category-title i { color: var(--crema); font-size: 1.5rem; }
@@ -124,7 +132,8 @@
 
         /* --- DISEÑO DE PRODUCTOS --- */
         .product-card {
-            background-color: #1a1a1a;
+            background-color: rgba(26, 26, 26, 0.95); /* Un pelín transparente para integrarse */
+            backdrop-filter: blur(5px);
             border: 1px solid var(--text-main);
             border-radius: 15px;
             overflow: hidden;
@@ -160,7 +169,7 @@
         }
         .btn-add:hover { background-color: var(--amarillo); color: #000; }
 
-        .salsas-box { background-color: #1a1a1a; border: 1px solid var(--gris-plata); border-radius: 15px; padding: 1.5rem; margin-top: 1.5rem; }
+        .salsas-box { background-color: rgba(26, 26, 26, 0.95); backdrop-filter: blur(5px); border: 1px solid var(--gris-plata); border-radius: 15px; padding: 1.5rem; margin-top: 1.5rem; }
         .salsas-box h3 { font-family: var(--font-titles); font-style: italic; font-size: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; color: var(--amarillo); }
         .salsas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
         .salsa-item { background-color: #000; border: 1px solid var(--gris-plata); padding: 0.5rem; text-align: center; border-radius: 8px; font-size: 0.8rem; font-weight: 600; }
@@ -168,7 +177,7 @@
         /* --- MODAL DEL CARRITO --- */
         .cart-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.85); z-index: 200; align-items: center; justify-content: center;
         }
         .cart-modal.active { display: flex; }
         .cart-content {
@@ -200,7 +209,7 @@
         }
         .whatsapp-btn:hover { transform: scale(1.1); }
 
-        footer { text-align: center; padding: 2rem 1rem; margin-top: 3rem; border-top: 1px solid var(--gris-plata); font-size: 0.85rem; color: var(--gris-plata); }
+        footer { text-align: center; padding: 2rem 1rem; margin-top: 3rem; border-top: 1px solid var(--gris-plata); font-size: 0.85rem; color: var(--gris-plata); background: rgba(13,13,13,0.8); }
         footer a { color: var(--amarillo); font-weight: 600; }
 
         @media (max-width: 600px) {
@@ -300,8 +309,8 @@
                 <div class="salsa-item">Salsa Criolla</div>
                 <div class="salsa-item">Cebolla Caramelizada</div>
             </div>
-                    </div>
-    <!-- CATEGORÍA: SÁNDWICHES -->
+            </div>
+                <!-- CATEGORÍA: SÁNDWICHES -->
     <h2 class="category-title"><i class="fa-solid fa-bread-slice"></i> Sándwiches</h2>
     <div class="product-grid">
         <div class="product-card">
@@ -378,7 +387,7 @@
             </div>
         </div>
     </div>
-    </main>
+                </main>
         <!-- MODAL DEL CARRITO -->
     <div class="cart-modal" id="cart-modal">
         <div class="cart-content">
@@ -505,4 +514,4 @@
     </script>
 
 </body>
-</html>
+</html>            
